@@ -2,7 +2,7 @@ package MultidimensionalArray;
 
 import java.util.Scanner;
 
-public class FillTheMatrix {
+public class FillMatrix {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String[] strings = input.nextLine().split(", ");
