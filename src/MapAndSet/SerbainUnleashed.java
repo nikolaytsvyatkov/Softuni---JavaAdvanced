@@ -1,5 +1,7 @@
 package MapAndSet;
 
+import jdk.dynalink.linker.LinkerServices;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,6 +18,12 @@ public class SerbainUnleashed {
            Matcher matcher = pattern.matcher(command);
            if (matcher.find()) {
                String name = matcher.group("singer");
+               if (name.charAt(name.length() - 1) == ' ') {
+                  StringBuilder sb = new StringBuilder(name);
+                  sb.deleteCharAt(sb.length() - 1);
+                  name = sb.toString();
+               }
+
                String city = matcher.group("city");
                int price = (Integer.parseInt( matcher.group("price")));
                int count = (Integer.parseInt( matcher.group("count")));
@@ -38,7 +46,7 @@ public class SerbainUnleashed {
             Map<String, Long> map1 = e.getValue();
             System.out.println(e.getKey());
             map1.entrySet().stream().sorted((a, b) -> Long.compare(b.getValue(), a.getValue())).forEach(a ->{
-                System.out.printf("#  %s-> %d%n",a.getKey(), a.getValue());
+                System.out.printf("#  %s -> %d%n",a.getKey(), a.getValue());
             });
         });
         System.out.println();
