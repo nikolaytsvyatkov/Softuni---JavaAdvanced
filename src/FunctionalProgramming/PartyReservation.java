@@ -57,7 +57,7 @@ public class PartyReservation {
             }
             command = input.nextLine();
         }
-        Collections.reverse(list);
+
         list.stream().forEach(e -> System.out.print(e + " "));
     }
     static  Predicate<String> predicate (String type, String argument) {
