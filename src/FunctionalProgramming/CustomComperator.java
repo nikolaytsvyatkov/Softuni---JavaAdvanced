@@ -14,9 +14,15 @@ public class CustomComperator {
        List<Integer> arr = Arrays.stream(input.nextLine().split(" ")).map(e -> Integer.parseInt(e)).collect(Collectors.toList());
         arr.stream()
                 .sorted((a, b) ->{
-                    int x = Math.abs( a % 2);
-                    int y = Math.abs( b % 2);
-                    return Integer.compare(x, y);
+                    int result = 0;
+                    if (a % 2 == 0 && b % 2 != 0) {
+                        result = -1;
+                    } else if (a % 2 != 0 && b % 2 ==0) {
+                        result = 1;
+                    } else {
+                        result = a - b;
+                    }
+                    return result;
 
         }).forEach(e -> System.out.print(e + " "));
     }
