@@ -31,34 +31,26 @@ public class Main {
                 List<Pokemon> list = entry.getValue().getPokemonList();
                 boolean flag = false;
                 for (Pokemon i : list) {
-                    if (i.chekElements()) {
-                        if (i.getElement().equals(commnad)) {
+                        if (i.getElement().equals(commnad) && checkElemnts(commnad)) {
                             entry.getValue().setNumberOfBadges();
                             flag = true;
+                            break;
+                        }
+                }
+                if (!flag && entry.getValue().getPokemonListSize() != 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        list.get(i).setHealth();
+                        if (list.get(i).getHealth() <= 0) {
+                            list.remove(list.get(i));
+                            i--;
                         }
                     }
-
-
-                }
-                if (!flag) {
-                    entry.getValue().getPokemonList().stream().forEach(e -> {
-                        e.setHealth();
-
-                    });
                 }
             }
             commnad = input.nextLine();
         }
 
-        map.entrySet().forEach( e-> {
-            List<Pokemon> list = e.getValue().getPokemonList();
-           for (int i = 0; i < e.getValue().getPokemonListSize(); i++) {
-                if (list.get(i).getHealth() <= 0) {
-                    e.getValue().removePokemon(list.get(i));
-                    i--;
-                }
-            }
-        });
+
        map.entrySet().stream().sorted((a,b) ->{
          return Integer.compare(b.getValue().getNumberOfBadges(), a.getValue().getNumberOfBadges());
 
@@ -70,6 +62,6 @@ public class Main {
     static boolean checkElemnts (String command) {
         return command.equals("Electricity") ||
                 command.equals("Fire") ||
-                command.equals("water");
+                command.equals("Water");
     }
 }
