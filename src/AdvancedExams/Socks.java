@@ -7,32 +7,36 @@ public class Socks {
         Scanner input = new Scanner(System.in);
         int[] arrLeft = Arrays.stream(input.nextLine().split(" ")).mapToInt(e -> Integer.parseInt(e)).toArray();
         int[] arrRight = Arrays.stream(input.nextLine().split(" ")).mapToInt(e -> Integer.parseInt(e)).toArray();
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        ArrayDeque<Integer> leftStack = new ArrayDeque<>();
+        ArrayDeque<Integer> RightQueue = new ArrayDeque<>();
+
+        List<Integer> list = new ArrayList<>();
+
         for (int i = 0; i < arrLeft.length; i++) {
-            stack.push(arrLeft[i]);
+            leftStack.push(arrLeft[i]);
         }
         for (int i = 0; i < arrRight.length; i++) {
-            queue.offer(arrRight[i]);
+            RightQueue.offer(arrRight[i]);
         }
-        List<Integer> list = new ArrayList<>();
-       while (queue.size() != 0 || stack.size() != 0) {
-           if (stack.size() > 0 && queue.size() > 0) {
-               int left = stack.peek();
-               int right = queue.peek();
-               if (left > right) {
-                   list.add(left + right);
-                   stack.pop();
-                   queue.poll();
-               } else if (right > left) {
-                    stack.pop();
-               } else if (right == left) {
-                   queue.poll();
-                   int elem = stack.pop() + 1;
-                   stack.push(elem);
-               }
-           }
+        while (leftStack.size() != 0 && RightQueue.size() != 0) {
+            int sockLelft = leftStack.peek();
+            int sockRight = RightQueue.peek();
+            if (sockLelft > sockRight) {
+                list.add(sockLelft + sockRight);
+                leftStack.pop();
+                RightQueue.poll();
+            } else if (sockRight > sockLelft) {
+                leftStack.pop();
+            } else {
+                RightQueue.poll();
+                int element = leftStack.pop() + 1;
+                leftStack.push(element);
+            }
 
-       }
+        }
+        int max = list.stream().max((a, b) -> Integer.compare(a,b)).get();
+        System.out.println(max);
+        list.forEach(e -> System.out.printf("%d ",e));
+
     }
 }
