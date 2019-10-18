@@ -3,10 +3,12 @@ package Generics.customlist;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public class CustomList<T extends Comparable<T>> {
+public class CustomList<T extends Comparable<T>> implements Iterable<T> {
     private List<T> list;
+
 
     public CustomList() {
         list = new ArrayList<T>();
@@ -50,6 +52,9 @@ public class CustomList<T extends Comparable<T>> {
         return max;*/
        return Collections.max(this.list);
     }
+
+
+
     public T getMin(){
        /* T max = list.get(0);
         for (int i = 1; i < this.list.size(); i++) {
@@ -67,7 +72,21 @@ public class CustomList<T extends Comparable<T>> {
     public static <T extends Comparable<T>> void printList(CustomList<T> data) {
         data.list.forEach(System.out::println);
     }
+    private final class CustomIterator implements Iterator<T>{
+        private int index;
+        @Override
+        public boolean hasNext() {
+            return index < getList().size();
+        }
 
+        @Override
+        public T next() {
+            return getList().get(index++);
+        }
+    }
 
-
+    @Override
+    public Iterator<T> iterator() {
+        return new CustomIterator();
+    }
 }

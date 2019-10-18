@@ -32,7 +32,9 @@ public class Main {
                     System.out.println(customList.getMin());
                     break;
                 case "Print":
-                    CustomList.printList(customList);
+                    for (String i : customList) {
+                        System.out.println(i);
+                    }
                     break;
                 case "Sort":
                     Sorter.sort(customList);
